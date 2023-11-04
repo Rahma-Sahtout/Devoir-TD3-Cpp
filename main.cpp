@@ -369,6 +369,25 @@ int main() {
 
 
 //Exercice 6
+#include <iostream>
+using namespace std;
+
+class vect {
+protected:
+    int* adr;
+    int nelen;
+public:
+    vect(int nelen) : nelen(nelen) {
+        adr = new int[nelen];
+    }
+    ~vect() {
+        delete[] adr;
+    }
+    int& operator[](int index) {
+        return adr[index];
+    }
+};
+
 class vectok : public vect {
 public:
     vectok(int nelen) : vect(nelen) {}
@@ -411,8 +430,6 @@ int main() {
 
     return 0;
 }
-
-
 
 
 //Exercice 8 
