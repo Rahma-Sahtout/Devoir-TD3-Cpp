@@ -1,87 +1,68 @@
-#include <iostream>
-#include <list>
-#include <algorithm>
+//exercice 1
+#include<iostream>
+#include <cmath>
+#include <complex>
 using namespace std;
-// Tri à bulle
-void triABulle(list<int>& liste) {
-    bool estTrie = false;
-    while (!estTrie) {
-        estTrie = true;
-        for (auto it = liste.begin(); it != prev(liste.end()); ++it) {
-            if (*it > *next(it)) {
-                swap(*it, *next(it));
-                estTrie = false;
-            }
-        }
+
+class Complex{
+private:
+   double reel;
+    double imag;
+public:
+    Complex(double re,double im ): reel(re) , imag(im){}
+    Complex addition(Complex autre){
+        return Complex(reel + autre.reel , imag + autre.imag);
     }
-}
-
-// Tri par sélection
-void triParSelection(list<int>& liste) {
-    for (auto it = liste.begin(); it != prev(liste.end()); ++it) {
-        auto minElement = min_element(it, liste.end());
-        iter_swap(it, minElement);
+    Complex soustraction(Complex autre){
+        return Complex(reel-autre.reel , imag-autre.reel);
     }
-}
-
-// Tri par insertion
-void triParInsertion(list<int>& liste) {
-    for (auto it = next(liste.begin()); it != liste.end(); ++it) {
-        auto valeurCourante = *it;
-        auto position = upper_bound(liste.begin(), it, valeurCourante);
-        liste.insert(position, valeurCourante);
-        liste.erase(it);
+    Complex multiplication(Complex autre){
+        double nmbreel=(reel*autre.reel) + (imag*autre.imag);
+        double nmbimag= (reel*autre.imag) + (imag*autre.reel);
+        return Complex(nmbreel,nmbimag);
     }
-}
-
-int main() {
-    list<int> liste;
-
-    int nombre;
-    char continuer;
-
-    do {
-        cout << "Entrez un entier : ";
-        cin >> nombre;
-
-        liste.push_back(nombre);
-
-        cout << "Voulez-vous continuer (o/n) ? ";
-        cin >> continuer;
-    } while (continuer == 'o' || continuer == 'O');
-
-    cout << "Liste initiale : ";
-    for (const auto& element : liste) {
-        cout << element << " ";
+    Complex division(Complex autre ){
+        double denom= pow(autre.reel, 2)+ pow(autre.imag, 2);
+        double nmbreel=(reel*autre.reel + imag*autre.imag)/denom;
+        double nmbimag= (reel*autre.imag + imag*autre.reel)/denom;
+        return Complex(nmbreel,nmbimag);
     }
-    cout << endl;
-
-    // Tri à bulle
-    list<int> listeTrieeABulle = liste;
-    triABulle(listeTrieeABulle);
-    cout << "Liste triée avec le tri à bulle : ";
-    for (const auto& element : listeTrieeABulle) {
-        cout << element << " ";
+    void display (){
+        cout<<reel<<"+"<<imag<<"i"<<endl;
     }
-    cout << endl;
+};
+int main (){
+    double reel1,reel2,imag1,imag2;
+    cout<< "entrez la partie reel du premier nombre complex ";
+    cin>>reel1;
+    cout<< "entrez la partie imaginaire du premier nombre complex ";
+    cin>>imag1;
+    cout<< "entrez la partie reel du deuxieme nombre complex ";
+    cin>>reel2;
+    cout<< "entrez la partie imaginaire du deuxieme nombre complex ";
+    cin>>imag2;
+    Complex results(0,0);
+    Complex nombrecomplex1(reel1,imag1);
+    Complex nombrecomplex2(reel2,imag2);
+   char choix;
+    cout<<"entre loperation que vous souhaitez";
+    cin>>choix;
+    switch (choix) {
+        case'1':
+            results= nombrecomplex1.addition(nombrecomplex2);break;
+        case'2':
+            results= nombrecomplex1.soustraction(nombrecomplex2);break;
+        case'3':
+            results= nombrecomplex1.multiplication(nombrecomplex2);break;
+        case'4':
+            results= nombrecomplex1.division(nombrecomplex2);break;
 
-    // Tri par sélection
-    list<int> listeTrieeParSelection = liste;
-    triParSelection(listeTrieeParSelection);
-    cout << "Liste triée avec le tri par sélection : ";
-    for (const auto& element : listeTrieeParSelection) {
-        cout << element << " ";
+        default:
+            cout<<"choix invalide"<<endl;
+            return 1;
     }
-    cout << endl;
+    cout<<"\nresults"<<endl;
 
-    // Tri par insertion
-    list<int> listeTrieeParInsertion = liste;
-    triParInsertion(listeTrieeParInsertion);
-    cout << "Liste triée avec le tri par insertion : ";
-    for (const auto& element : listeTrieeParInsertion) {
-        cout << element << " ";
-    }
-    cout << endl;
-
+   results.display();
     return 0;
 }
