@@ -1,14 +1,14 @@
 # Devoir-TD3-Cpp
 STL et concepts avancés
-//Exercice 6
+                 //Exercice 6
 Le programme affichera les résultats suivants :
 
 Construction objet A : 2 0.0
 Construction objet B : 0.0
 Construction objet C : -1 12
-//Exercice 9 
+                 //Exercice 9 
 a. Avec les instructions `point<char> p(60, 65);` et `p.affiche();`, une erreur de compilation se produira car les coordonnées `60` et `65` sont des entiers et non des caractères (`char`). Pour résoudre ce problème, vous pouvez modifier les coordonnées pour qu'elles correspondent à des caractères valides.
-//Exercice 10
+                 //Exercice 10
 Ce programme donnera les résultats suivants :
 
 "dans f 999"
